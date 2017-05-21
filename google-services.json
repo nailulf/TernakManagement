@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1060549071808",
+    "firebase_url": "https://iternak-14422.firebaseio.com",
+    "project_id": "iternak-14422",
+    "storage_bucket": "iternak-14422.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060549071808:android:e68bdc61a306da41",
+        "android_client_info": {
+          "package_name": "com.example.nailul.iternak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060549071808-rc7m6abuklthcqctgqr8ppa48d5hr1j5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0ju0Be_wRU_vnCeCO0hpIDb4Qf8mTOLk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

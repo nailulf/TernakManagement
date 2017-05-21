@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:apps="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_detail"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|enterAlways"
+        android:titleTextColor="@color/textColorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layout_btn_bellow"
+        android:layout_below="@+id/toolbar_detail">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/detail_ternak_image_h"
+            >
+
+            <ImageView
+                android:id="@+id/ternak_pict"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/detail_ternak_image_h"
+                android:src="@mipmap/ic_ternak1"/>
+
+        </RelativeLayout>
+
+        <TableLayout
+            android:scrollbars="vertical"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TableRow
+                android:layout_marginBottom="@dimen/margin_row">
+
+                <TextView
+                    android:id="@+id/idCattle"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cattle_id"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+                <TextView
+                    android:layout_weight="4"
+                    android:id="@+id/idCattle_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cattle_id"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_marginBottom="@dimen/margin_row">
+                <TextView
+                    android:id="@+id/bwCattle"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cattle_bw"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+                <TextView
+                    android:layout_weight="4"
+                    android:id="@+id/bwCattle_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cattle_bw"
+                    android:textSize="@dimen/detail_primary_text"/>
+            </TableRow>
+            <TableRow
+                android:layout_marginBottom="@dimen/margin_row">
+                <TextView
+                    android:id="@+id/bhCattle"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cattle_bh"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+                <TextView
+                    android:layout_weight="4"
+                    android:id="@+id/bhCattle_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cattle_bh"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_marginBottom="@dimen/margin_row">
+                <TextView
+                    android:id="@+id/bcCattle"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cattle_bc"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+                <TextView
+                    android:layout_weight="4"
+                    android:id="@+id/bcCattle_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cattle_bc"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_marginBottom="@dimen/margin_row">
+                <TextView
+                    android:id="@+id/spesCattle"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cattle_spec"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+                <TextView
+                    android:layout_weight="4"
+                    android:id="@+id/spesCattle_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cattle_spec"
+                    android:textSize="@dimen/detail_primary_text"/>
+            </TableRow>
+            <TableRow
+                android:layout_marginBottom="@dimen/margin_row">
+                <TextView
+                    android:id="@+id/ageCattle"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cattle_age"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+                <TextView
+                    android:layout_weight="4"
+                    android:id="@+id/ageCattle_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cattle_age"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_marginBottom="@dimen/margin_row">
+                <TextView
+                    android:id="@+id/durCattle"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cattle_duration"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+                <TextView
+                    android:layout_weight="4"
+                    android:id="@+id/ddCattle_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cattle_duration"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_marginBottom="@dimen/margin_row">
+                <TextView
+                    android:id="@+id/colorCattle"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cattle_color"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+                <TextView
+                    android:layout_weight="4"
+                    android:id="@+id/colorCattle_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cattle_color"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_marginBottom="@dimen/margin_row">
+                <TextView
+                    android:id="@+id/healthCattle"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vet_note"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+                <Button
+                    android:layout_weight="4"
+                    android:id="@+id/healthCattle_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/vet_note"
+                    android:textSize="@dimen/detail_primary_text"/>
+
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_btn_bellow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/updateDetail_btn"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/UpdateBtn"/>
+
+        <Button
+            android:id="@+id/reportDetail_btn"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reportBtn"/>
+    </LinearLayout>
+
+</RelativeLayout>

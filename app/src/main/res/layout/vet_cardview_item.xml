@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card-view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/vet_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        card-view:cardBackgroundColor="@color/colorAccent"
+        android:layout_margin="@dimen/cardview_margin"
+        card-view:cardCornerRadius="@dimen/cardview_cornerradius">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/card_vet_thumb"
+                    android:layout_width="@dimen/card_ternak_image_w"
+                    android:layout_height="@dimen/card_ternak_image_h"
+                    android:layout_margin="@dimen/card_image_margin"
+                    android:layout_weight="0"
+                    android:clickable="true"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_ternak_card" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="4"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/vet_name_txt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vet_name"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/card_primary_text"/>
+
+                    <TextView
+                        android:id="@+id/vet_address_txt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vet_address"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/card_primary_text" />
+
+                    <TextView
+                        android:id="@+id/vet_phone_txt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vet_phone"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/card_primary_text" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/vet_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vet_name"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/card_primary_text"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/vet_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vet_address"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/card_primary_text" />
+
+                    <TextView
+                        android:id="@+id/vet_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vet_phone"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/card_primary_text" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/vet_call"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vet_call"
+                    android:textSize="@dimen/card_tertiary_text"
+                    android:drawableLeft="@drawable/ic_call"/>
+
+                <Button
+                    android:id="@+id/vet_message"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vet_message"
+                    android:textSize="@dimen/card_tertiary_text"
+                    android:drawableLeft="@drawable/ic_message" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card-view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/ternak_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        card-view:cardBackgroundColor="@color/colorAccent"
+        android:layout_margin="@dimen/cardview_margin"
+
+        card-view:cardCornerRadius="@dimen/cardview_cornerradius">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/card_ternak_thumb"
+                android:layout_width="@dimen/card_ternak_image_w"
+                android:layout_height="@dimen/card_ternak_image_h"
+                android:layout_margin="@dimen/card_image_margin"
+                android:layout_weight="0"
+                android:clickable="true"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/ic_ternak_card" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ternak_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/id_cattle"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/card_primary_text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/ternak_bb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/body_weight_cattle"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/card_secondary_text" />
+
+                <TextView
+                    android:id="@+id/ternak_jenis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/spesies_cattle"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/card_secondary_text" />
+
+                <TextView
+                    android:id="@+id/ternak_tgl_update"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/last_update_cattle"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/card_tertiary_text" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:layout_weight="0"
+                android:src="@drawable/ic_update_data" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

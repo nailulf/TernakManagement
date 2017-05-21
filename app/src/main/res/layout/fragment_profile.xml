@@ -1,0 +1,215 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/fragment_margin"
+    tools:context="com.nafaexample.ternakmanagement.fragments.CattleFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_margin="@dimen/fragment_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- TODO: Update blank fragment layout -->
+
+            <RelativeLayout
+                android:id="@+id/profileEdit"
+                android:clickable="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/profilePhoto"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_margin="20dp"
+                    android:background="@mipmap/ic_farmer"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/farmerID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/farmerID"
+                android:textAlignment="center"
+                android:textSize="@dimen/card_primary_text"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:scrollbars="vertical">
+
+                <TableRow
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_row">
+
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/farmer_name"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/detail_primary_text"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/farmerName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:hint="@string/farmer_name"
+                        android:textSize="@dimen/detail_primary_text"
+                        android:layout_gravity="center_vertical"/>
+
+                </TableRow>
+                <TableRow
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_row">
+
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/farmer_farm"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/detail_primary_text"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/farmerFarm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="@string/farmer_farm"
+                        android:textSize="@dimen/detail_primary_text"
+                        android:layout_gravity="center_vertical"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_row">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:text="@string/farmer_phone"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/detail_primary_text"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/farmerPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="@string/farmer_phone"
+                        android:textSize="@dimen/detail_primary_text"
+                        android:layout_gravity="center_vertical"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_row">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:text="@string/farmer_email"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/detail_primary_text"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/farmerEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="@string/farmer_email"
+                        android:textSize="@dimen/detail_primary_text"
+                        android:layout_gravity="center_vertical"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_row">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:text="@string/farmer_cattles"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/detail_primary_text"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/farmerCattles"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/farmer_cattles"
+                        android:textSize="@dimen/detail_primary_text"
+                        android:layout_gravity="center_vertical"/>
+                    <TextView
+                        android:layout_weight="0.3"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="cattles"/>
+
+                </TableRow>
+            </TableLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true">
+            <Button
+                android:layout_margin="5dp"
+                android:id="@+id/logoutProfileBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/logoutBtn"/>
+            <Button
+                android:layout_margin="5dp"
+                android:id="@+id/editProfileBtn"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/editBtn"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>
