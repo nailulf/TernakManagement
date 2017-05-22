@@ -126,7 +126,15 @@ public class CattleUpdateActivity extends AppCompatActivity {
         updateCattle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateDataCattle(updateCount);
+                if(!TextUtils.isEmpty(cattleBW.getText().toString())
+                        &&!TextUtils.isEmpty(cattleBC.getText().toString())
+                        &&!TextUtils.isEmpty(cattleBH.getText().toString())
+                        &&!TextUtils.isEmpty(cattleColor.getText().toString())
+                        && !TextUtils.isEmpty(String.valueOf(mImageUri))) {
+                    updateDataCattle(updateCount);
+                }else{
+                    Toast.makeText(CattleUpdateActivity.this, "Please fill all the blank",Toast.LENGTH_SHORT).show();
+                }
                 boolean success = true;
                 if(success) {
                     Toast.makeText(CattleUpdateActivity.this,
@@ -155,38 +163,33 @@ public class CattleUpdateActivity extends AppCompatActivity {
         final boolean mhCattle = false;
 
 
-        if(!TextUtils.isEmpty(String.valueOf(bwCattle))&&!TextUtils.isEmpty(String.valueOf(bcCattle))
-                &&!TextUtils.isEmpty(String.valueOf(bhCattle))&&!TextUtils.isEmpty(colorCattle)
-                && !TextUtils.isEmpty(String.valueOf(mImageUri)))
-        {
-            mProgressDialog.setMessage("Updating data...");
-            mProgressDialog.show();
-            StorageReference filePath = mStorage.child("cattle-image").child(cattle_key).child(mImageUri.getLastPathSegment());
-            filePath.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    final String imageUrl = downloadUrl.toString();
 
-                    DatabaseReference mUpdateRef = FirebaseDatabase.getInstance().getReference()
-                            .child("cattle").child(cattle_key);
+        mProgressDialog.setMessage("Updating data...");
+        mProgressDialog.show();
+        StorageReference filePath = mStorage.child("cattle-image").child(cattle_key).child(mImageUri.getLastPathSegment());
+        filePath.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                final String imageUrl = downloadUrl.toString();
 
-                    Cattle cattle1 = new Cattle(colorCattle, imageUrl, bwCattle, bhCattle,
-                            bcCattle, ageCattle, mhCattle);
-                    Map<String, Object> cattleValueUpdate = cattle1.toMapUp();
+                DatabaseReference mUpdateRef = FirebaseDatabase.getInstance().getReference()
+                        .child("cattle").child(cattle_key);
 
-                    Map<String, Object> upCount = new HashMap<>();
-                    upCount.put("/update-data-" + index, cattleValueUpdate);
+                Cattle cattle1 = new Cattle(colorCattle, imageUrl, bwCattle, bhCattle,
+                        bcCattle, ageCattle, mhCattle);
+                Map<String, Object> cattleValueUpdate = cattle1.toMapUp();
 
-                    mUpdateRef.updateChildren(upCount);
-                    mDatabase.child("updateCount").setValue(index);
-                    mDbUser.updateChildren(cattleValueUpdate);
-                }
-            });
-            mProgressDialog.dismiss();
-        }else{
-            Toast.makeText(this, "Please fill all the blank",Toast.LENGTH_SHORT).show();
-        }
+                Map<String, Object> upCount = new HashMap<>();
+                upCount.put("/update-data-" + index, cattleValueUpdate);
+
+                mUpdateRef.updateChildren(upCount);
+                mDatabase.child("updateCount").setValue(index);
+                mDbUser.updateChildren(cattleValueUpdate);
+            }
+        });
+        mProgressDialog.dismiss();
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){

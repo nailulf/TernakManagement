@@ -25,8 +25,7 @@ public class ReportActivity extends AppCompatActivity{
     public static String EXTRA_CATTLE_KEY ="ID Cattle";
     public static final String TAG ="Report Activity";
     private static String cattlekey;
-    private int dd;
-    private int update;
+    private int update, dayCount;
     private long timeStamp;
     private double age,bc,bh,bw;
 
@@ -59,6 +58,16 @@ public class ReportActivity extends AppCompatActivity{
             Log.d(TAG,"Success get intent extra key");
         }
 
+        bwMaxView = (TextView) findViewById(R.id.bw_max_view);
+        bwMinView =(TextView) findViewById(R.id.bw_min_view);
+        bwAvView =(TextView) findViewById(R.id.bw_average_view);
+        bhMaxView = (TextView) findViewById(R.id.bh_max_view);
+        bhMinView =(TextView) findViewById(R.id.bh_min_view);
+        bhAvView =(TextView) findViewById(R.id.bh_average_view);
+        bcMaxView = (TextView) findViewById(R.id.bc_max_view);
+        bcMinView =(TextView) findViewById(R.id.bc_min_view);
+        bcAvView =(TextView) findViewById(R.id.bc_average_view);
+
         graphBw = (GraphView) findViewById(R.id.bw_graph);
         graphBh = (GraphView) findViewById(R.id.bh_graph);
         graphBc = (GraphView) findViewById(R.id.bc_graph);
@@ -67,7 +76,7 @@ public class ReportActivity extends AppCompatActivity{
         mProgressDialog = new ProgressDialog(ReportActivity.this);
         mProgressDialog.setMessage("Retrieving data ...");
         mProgressDialog.show();
-        getUpdateCount();
+        getUpdatenDataCount();
         mHandler1.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -85,12 +94,14 @@ public class ReportActivity extends AppCompatActivity{
 
     }
 
-    public int getUpdateCount(){
+    public int getUpdatenDataCount(){
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Cattle cattle = dataSnapshot.getValue(Cattle.class);
                 update = cattle.updateCount;
+                timeStamp = cattle.timestamp;
+                dayCount = getDayCount(timeStamp);
             }
 
             @Override
@@ -111,22 +122,38 @@ public class ReportActivity extends AppCompatActivity{
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                double[] tempBw = new double[max+1];
+                double[] tempBh = new double[max+1];
+                double[] tempBc = new double[max+1];
                 for (int i= 0;i<=max;i++) {
                     Cattle cattle = dataSnapshot.child("update-data-"+i).getValue(Cattle.class);
                     bw = cattle.bw;
-                    Log.d(TAG, "onDataChange bw: " + bw);
                     bh = cattle.bh;
-                    Log.d(TAG, "onDataChange bh: " + bh);
                     bc = cattle.bc;
-                    Log.d(TAG, "onDataChange bc: " + bc);
+                    Log.d(TAG, "get data bc: " + bc+"; bw: "+bw+"; bh: "+bh);
                     //append data to series
                     vbw.appendData(new DataPoint(i, bw), true, max+1);
                     vbh.appendData(new DataPoint(i, bh), true, max+1);
                     vbc.appendData(new DataPoint(i, bc), true, max+1);
-
                     Log.d(TAG, "Success getData => vbw: "+ vbw +"vbh: "+ vbh +"vbh: "+ vbc);
-
+                    //append data to temp array
+                    tempBw[i] = bw;
+                    tempBh[i] = bh;
+                    tempBc[i] = bc;
                 }
+
+                //find maximum value
+                bwMaxView.setText(String.valueOf(getMax(tempBw)));
+                bhMaxView.setText(String.valueOf(getMax(tempBh)));
+                bcMaxView.setText(String.valueOf(getMax(tempBc)));
+                //find minimum value
+                bwMinView.setText(String.valueOf(getMin(tempBw)));
+                bhMinView.setText(String.valueOf(getMin(tempBh)));
+                bcMinView.setText(String.valueOf(getMin(tempBc)));
+                //find average value
+                bwAvView.setText(String.valueOf(getAvr(tempBw)));
+                bhAvView.setText(String.valueOf(getAvr(tempBh)));
+                bcAvView.setText(String.valueOf(getAvr(tempBc)));
             }
 
             @Override
@@ -173,5 +200,35 @@ public class ReportActivity extends AppCompatActivity{
         mProgressDialog.dismiss();
     }
 
+    public double getMax(double[] arg){
+        double maxVal = arg[0];
+        for (int m = 0; m<= arg.length-1;m++){
+            if(arg[m]>maxVal){
+                maxVal=arg[m];
+            }
+        }
+        return maxVal;
+    }
+    public double getMin(double[] arg){
+        double minVal = arg[0];
+        for (int m = 0; m<= arg.length-1;m++){
+            if(minVal>arg[m]){
+                minVal=arg[m];
+            }
+        }
+        return minVal;
+    }
+    public double getAvr(double[] arg){
+        return arg[0]+arg[arg.length-1]/dayCount;
+    }
+
+    public int getDayCount(long pDate){
+        long cDate = System.currentTimeMillis();
+
+        // Calculate difference in milliseconds
+        long diff = Math.abs(cDate - pDate);
+        System.out.println("Day Count : "+ diff / (24 * 60 * 60 * 1000));
+        return (int)(diff / (24 * 60 * 60 * 1000));
+    }
 }
 
