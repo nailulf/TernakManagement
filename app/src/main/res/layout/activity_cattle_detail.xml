@@ -24,8 +24,7 @@
         android:layout_below="@+id/toolbar_detail">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/detail_ternak_image_h"
-            >
+            android:layout_height="@dimen/detail_ternak_image_h">
 
             <ImageView
                 android:id="@+id/ternak_pict"

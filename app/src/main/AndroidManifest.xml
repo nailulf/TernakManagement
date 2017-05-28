@@ -39,6 +39,11 @@
         <activity android:name=".NewCattleActivity" />
         <activity android:name=".ReportActivity" />
         <activity android:name=".ProfileUpdateActivity"></activity>
+        <service android:name=".NotificationMessageService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

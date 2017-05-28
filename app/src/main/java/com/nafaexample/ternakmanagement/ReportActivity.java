@@ -4,11 +4,14 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,8 +21,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.nafaexample.ternakmanagement.models.Cattle;
-
-import java.util.concurrent.Semaphore;
+import com.squareup.picasso.Picasso;
 
 public class ReportActivity extends AppCompatActivity{
     public static String EXTRA_CATTLE_KEY ="ID Cattle";
@@ -28,6 +30,8 @@ public class ReportActivity extends AppCompatActivity{
     private int update, dayCount;
     private long timeStamp;
     private double age,bc,bh,bw;
+    private String imageUrl;
+    public String[] imageResources = new String[5];
 
     private final Handler mHandler1 = new Handler();
     private final Handler mHandler2 = new Handler();
@@ -38,6 +42,8 @@ public class ReportActivity extends AppCompatActivity{
 
     private GraphView graphBw, graphBh, graphBc;
 
+    private TextView idView, ageView, dayView, colorView;
+
     private LineGraphSeries<DataPoint> bws;
     private LineGraphSeries<DataPoint> bhs;
     private LineGraphSeries<DataPoint> bcs;
@@ -45,6 +51,8 @@ public class ReportActivity extends AppCompatActivity{
     private DatabaseReference mDatabase;
     private DatabaseReference mRef;
     private ProgressDialog mProgressDialog;
+    private View img;
+    private LinearLayout imageLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +66,8 @@ public class ReportActivity extends AppCompatActivity{
             Log.d(TAG,"Success get intent extra key");
         }
 
+        imageLayout = (LinearLayout) findViewById(R.id._linearLayout);
+
         bwMaxView = (TextView) findViewById(R.id.bw_max_view);
         bwMinView =(TextView) findViewById(R.id.bw_min_view);
         bwAvView =(TextView) findViewById(R.id.bw_average_view);
@@ -68,33 +78,39 @@ public class ReportActivity extends AppCompatActivity{
         bcMinView =(TextView) findViewById(R.id.bc_min_view);
         bcAvView =(TextView) findViewById(R.id.bc_average_view);
 
+        idView =(TextView) findViewById(R.id.id_report);
+        ageView =(TextView) findViewById(R.id.age_report);
+        dayView  =(TextView) findViewById(R.id.daycount_report);
+        colorView =(TextView) findViewById(R.id.color_report);
+
         graphBw = (GraphView) findViewById(R.id.bw_graph);
         graphBh = (GraphView) findViewById(R.id.bh_graph);
         graphBc = (GraphView) findViewById(R.id.bc_graph);
+
+        imageLayout.removeAllViews();
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("cattle").child(cattlekey).child("init-data");
         mProgressDialog = new ProgressDialog(ReportActivity.this);
         mProgressDialog.setMessage("Retrieving data ...");
         mProgressDialog.show();
-        getUpdatenDataCount();
+        getReportData();
         mHandler1.postDelayed(new Runnable() {
             @Override
             public void run() {
                 Log.d(TAG, "handler 1 => update : "+update);
-                getData(update);
+                getDataGraph(update);
             }
         },3000);
         mHandler2.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "handler 2 => getData : "+ bws +" ; "+bhs+" ; "+bcs);
+                Log.d(TAG, "handler 2 => getDataGraph : "+ bws +" ; "+bhs+" ; "+bcs);
                 drawGraph();
+                getDataPict();
             }
         },6000);
-
     }
-
-    public int getUpdatenDataCount(){
+    public int getReportData(){
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -102,6 +118,10 @@ public class ReportActivity extends AppCompatActivity{
                 update = cattle.updateCount;
                 timeStamp = cattle.timestamp;
                 dayCount = getDayCount(timeStamp);
+                dayView.setText(String.valueOf(dayCount));
+                idView.setText(cattle.id);
+                ageView.setText(String.valueOf(cattle.age));
+                colorView.setText(String.valueOf(cattle.color));
             }
 
             @Override
@@ -112,9 +132,7 @@ public class ReportActivity extends AppCompatActivity{
         Log.d(TAG, "getUpdateCount: "+update);
         return update;
     }
-
-    public void getData(final int max){
-
+    public void getDataGraph(final int max){
         final LineGraphSeries<DataPoint> vbw = new LineGraphSeries<>();
         final LineGraphSeries<DataPoint> vbh = new LineGraphSeries<>();
         final LineGraphSeries<DataPoint> vbc = new LineGraphSeries<>();
@@ -125,23 +143,25 @@ public class ReportActivity extends AppCompatActivity{
                 double[] tempBw = new double[max+1];
                 double[] tempBh = new double[max+1];
                 double[] tempBc = new double[max+1];
+                imageResources = new String[max+1];
                 for (int i= 0;i<=max;i++) {
                     Cattle cattle = dataSnapshot.child("update-data-"+i).getValue(Cattle.class);
                     bw = cattle.bw;
                     bh = cattle.bh;
                     bc = cattle.bc;
+                    imageUrl = cattle.image;
                     Log.d(TAG, "get data bc: " + bc+"; bw: "+bw+"; bh: "+bh);
                     //append data to series
                     vbw.appendData(new DataPoint(i, bw), true, max+1);
                     vbh.appendData(new DataPoint(i, bh), true, max+1);
                     vbc.appendData(new DataPoint(i, bc), true, max+1);
-                    Log.d(TAG, "Success getData => vbw: "+ vbw +"vbh: "+ vbh +"vbh: "+ vbc);
+                    Log.d(TAG, "Success getDataGraph => vbw: "+ vbw +"vbh: "+ vbh +"vbh: "+ vbc);
                     //append data to temp array
                     tempBw[i] = bw;
                     tempBh[i] = bh;
                     tempBc[i] = bc;
+                    imageResources[i] = imageUrl;
                 }
-
                 //find maximum value
                 bwMaxView.setText(String.valueOf(getMax(tempBw)));
                 bhMaxView.setText(String.valueOf(getMax(tempBh)));
@@ -161,12 +181,23 @@ public class ReportActivity extends AppCompatActivity{
 
             }
         });
-
         bws = vbw;
         bhs = vbh;
         bcs = vbc;
     }
-
+    public void getDataPict(){
+        for (int i = 0; i < imageResources.length; i++) {
+            Log.d(TAG, "onCreate: add view img");
+            Log.d(TAG, "getDataPict: "+imageResources[i]);
+            img = getLayoutInflater().inflate(R.layout.pager_image_item, null);
+            final ImageView imageView = (ImageView) img.findViewById(R.id.image_view);
+            final TextView imageName = (TextView) img.findViewById(R.id.image_name);
+            imageView.setId(i);
+            imageName.setText("Image "+ (i+1));
+            Picasso.with(getApplicationContext()).load(imageResources[i]).into(imageView);
+            imageLayout.addView(img);
+        }
+    }
     public void drawGraph(){
         Log.d(TAG, "drawGraph: start!");
         graphBw.addSeries(bws);
@@ -199,7 +230,6 @@ public class ReportActivity extends AppCompatActivity{
 
         mProgressDialog.dismiss();
     }
-
     public double getMax(double[] arg){
         double maxVal = arg[0];
         for (int m = 0; m<= arg.length-1;m++){
@@ -218,10 +248,16 @@ public class ReportActivity extends AppCompatActivity{
         }
         return minVal;
     }
-    public double getAvr(double[] arg){
-        return arg[0]+arg[arg.length-1]/dayCount;
-    }
+    public double getAvr(double[] arg) {
+        double avr;
+        if (dayCount >= 1) {
+            avr = arg[0] + arg[arg.length - 1] / dayCount;
+        }else{
+            avr = 0;
+        }
 
+        return avr;
+    }
     public int getDayCount(long pDate){
         long cDate = System.currentTimeMillis();
 
@@ -231,4 +267,5 @@ public class ReportActivity extends AppCompatActivity{
         return (int)(diff / (24 * 60 * 60 * 1000));
     }
 }
+
 

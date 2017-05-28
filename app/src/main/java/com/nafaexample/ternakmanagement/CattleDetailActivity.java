@@ -170,9 +170,8 @@ public class CattleDetailActivity extends AppCompatActivity{
             }
         }
     }
-    public int getDayCount(long timeStamp)
+    public int getDayCount(long pDate)
     {
-        long pDate = timeStamp;
         long cDate = System.currentTimeMillis();
 
         // Calculate difference in milliseconds

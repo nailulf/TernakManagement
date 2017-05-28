@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.nafaexample.ternakmanagement.fragments.ProfileFragment;
 import com.nafaexample.ternakmanagement.fragments.CattleFragment;
 import com.nafaexample.ternakmanagement.fragments.TodoFragment;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int[] tabIcons = {
             R.drawable.ic_ternak,
-            R.drawable.ic_todo,
+            //R.drawable.ic_todo,
             R.drawable.ic_veteriner,
             R.drawable.ic_profile
 
@@ -53,19 +54,21 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+
+        FirebaseMessaging.getInstance().subscribeToTopic(getUid());
     }
 
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+        //tabLayout.getTabAt(3).setIcon(tabIcons[3]);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new CattleFragment(), "Cattle");
-        adapter.addFragment(new TodoFragment(), "ToDo");
+        //adapter.addFragment(new TodoFragment(), "ToDo");
         adapter.addFragment(new VeterinerFragment(), "Veteriner");
         adapter.addFragment(new ProfileFragment(), "Profile");
         viewPager.setAdapter(adapter);
@@ -103,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu); //your file name
+        inflater.inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -111,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.sign_out_menu:
-                //your code
                 mAuth.signOut();
                 Intent login = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(login);
@@ -120,5 +122,9 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public String getUid() {
+        return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 }
