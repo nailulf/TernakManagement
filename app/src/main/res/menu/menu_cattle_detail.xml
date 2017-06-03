@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Delete / will display always -->
+    <item android:id="@+id/action_delete"
+        android:icon="@drawable/ic_delete"
+        android:title="Remove Cattle"
+        android:showAsAction="always"/>
+</menu>

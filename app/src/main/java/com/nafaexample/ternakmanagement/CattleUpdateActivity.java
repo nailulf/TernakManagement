@@ -27,6 +27,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.nafaexample.ternakmanagement.models.Cattle;
+import com.nafaexample.ternakmanagement.utils.FirebaseUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -78,12 +79,10 @@ public class CattleUpdateActivity extends AppCompatActivity {
         updateCattle = (Button)findViewById(R.id.updateDetail_btn);
         addPicture =(FloatingActionButton)findViewById(R.id.add_picture);
 
-        mStorage = FirebaseStorage.getInstance().getReference();
-        mDatabase = FirebaseDatabase.getInstance().getReference()
-                .child("cattle").child(cattle_key).child("init-data");
-        mDbUser = FirebaseDatabase.getInstance().getReference()
-                .child("user-cattles").child(getUid()).child(cattle_key);
-        Log.d(TAG, "onCreate: "+mDbUser);
+
+        mDatabase = FirebaseUtils.getCattleRef().child(cattle_key).child("init-data");
+        //mDbUser = FirebaseDatabase.getInstance().getReference()
+        //        .child("user-cattles").child(getUid()).child(cattle_key);
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -162,11 +161,10 @@ public class CattleUpdateActivity extends AppCompatActivity {
         final int index = (int) (updateCount +1);
         final boolean mhCattle = false;
 
-
-
         mProgressDialog.setMessage("Updating data...");
         mProgressDialog.show();
-        StorageReference filePath = mStorage.child("cattle-image").child(cattle_key).child(mImageUri.getLastPathSegment());
+        StorageReference filePath = FirebaseUtils.getImageCattleRef().child(cattle_key)
+                .child(mImageUri.getLastPathSegment());
         filePath.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -185,7 +183,8 @@ public class CattleUpdateActivity extends AppCompatActivity {
 
                 mUpdateRef.updateChildren(upCount);
                 mDatabase.child("updateCount").setValue(index);
-                mDbUser.updateChildren(cattleValueUpdate);
+                FirebaseUtils.getCurrentUserCattleRef().child(cattle_key)
+                        .updateChildren(cattleValueUpdate);
             }
         });
         mProgressDialog.dismiss();
@@ -200,11 +199,6 @@ public class CattleUpdateActivity extends AppCompatActivity {
 
             dispPict.setImageURI(mImageUri);
         }
-    }
-
-
-    public String getUid() {
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
 }

@@ -25,6 +25,7 @@ import com.nafaexample.ternakmanagement.MainActivity;
 import com.nafaexample.ternakmanagement.ProfileUpdateActivity;
 import com.nafaexample.ternakmanagement.R;
 import com.nafaexample.ternakmanagement.models.User;
+import com.nafaexample.ternakmanagement.utils.FirebaseUtils;
 import com.squareup.picasso.Picasso;
 
 import static android.app.Activity.RESULT_OK;
@@ -50,7 +51,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(getUid());
+        mDatabase = FirebaseUtils.getUserRef().child(FirebaseUtils.getUid());
         Log.d(TAG, "onCreateView: "+mDatabase);
         mProgressDialog = new ProgressDialog(getContext());
         nameTxt =(TextView) rootView.findViewById(R.id.farmerName);
@@ -67,7 +68,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent edit = new Intent(getActivity(), ProfileUpdateActivity.class);
-                edit.putExtra("ID User",String.valueOf(getUid()));
+                edit.putExtra("ID User",String.valueOf(FirebaseUtils.getUid()));
                 startActivityForResult(edit, GALLERY_REQUEST);
             }
         });
@@ -82,7 +83,7 @@ public class ProfileFragment extends Fragment {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);;
+                User user = dataSnapshot.getValue(User.class);
                 nameTxt.setText(user.user);
                 farmTxt.setText(user.farm);
                 phoneTxt.setText(user.phone);
@@ -106,8 +107,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void getCattleNum() {
-        DatabaseReference mUsercattleRef = FirebaseDatabase.getInstance().getReference()
-                .child("user-cattles").child(getUid());
+        DatabaseReference mUsercattleRef = FirebaseUtils.getUserCattleRef().child(FirebaseUtils.getUid());
         mUsercattleRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -123,7 +123,4 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    public String getUid() {
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
-    }
 }

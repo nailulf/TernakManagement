@@ -7,4 +7,11 @@ package com.nafaexample.ternakmanagement.utils;
  */
 
 public class Constant {
+
+    public static final String POST_IMAGES_CATTLE = "cattle-image";
+    public static final String POST_IMAGES_USER = "user-images";
+    public static final String POST_CATTLES = "cattle";
+    public static final String POST_USER_CATTLES = "user-cattles";
+    public static final String POST_VETERINERS ="veteriners";
+    public static final String POST_USERS = "users";
 }

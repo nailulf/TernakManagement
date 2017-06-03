@@ -25,14 +25,13 @@ import com.google.firebase.storage.StorageReference;
 import com.nafaexample.ternakmanagement.R;
 import com.nafaexample.ternakmanagement.adapters.VeterinerAdapter;
 import com.nafaexample.ternakmanagement.models.Veteriner;
+import com.nafaexample.ternakmanagement.utils.FirebaseUtils;
 
 public class VeterinerFragment extends Fragment {
 
     private final String TAG="Veteriner Fragment";
     private RecyclerView recyclerVetView;
 
-    public DatabaseReference mDatabase;
-    public StorageReference mStorage;
     private LinearLayoutManager layoutManager;
     private ProgressDialog mProgressDialog;
     private FirebaseRecyclerAdapter<Veteriner, VeterinerAdapter> vetsAdapter;
@@ -46,9 +45,6 @@ public class VeterinerFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState){
         View rootView= inflater.inflate(R.layout.fragment_veteriner, container, false);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mStorage = FirebaseStorage.getInstance().getReference();
-
         recyclerVetView = (RecyclerView) rootView.findViewById(R.id.veteriner_recyclerview);
         recyclerVetView.setHasFixedSize(true);
 
@@ -61,8 +57,6 @@ public class VeterinerFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log.d(TAG, ":Start Fragment!");
-        Log.d(TAG, "onCreate: "+ mDatabase);
-        Log.d(TAG, "Uid: "+ getUid());
 
         // Set up Layout Manager, reverse layout
         layoutManager = new LinearLayoutManager(getActivity());
@@ -72,7 +66,7 @@ public class VeterinerFragment extends Fragment {
         mProgressDialog.setMessage("Loading data...");
         mProgressDialog.show();
         //set up query
-        final Query vetQuery = getQuery(mDatabase);
+        final Query vetQuery = FirebaseUtils.getVetQuery();
         vetsAdapter = new FirebaseRecyclerAdapter<Veteriner, VeterinerAdapter>(Veteriner.class,
                 R.layout.vet_cardview_item, VeterinerAdapter.class, vetQuery) {
             @Override
@@ -134,11 +128,4 @@ public class VeterinerFragment extends Fragment {
 
     }
 
-    public String getUid() {
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
-    }
-
-    public Query getQuery(DatabaseReference databaseReference) {
-        return databaseReference.child("veteriners");
-    }
 }

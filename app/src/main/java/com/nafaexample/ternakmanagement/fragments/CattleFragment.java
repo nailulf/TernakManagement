@@ -24,6 +24,7 @@ import com.nafaexample.ternakmanagement.models.Cattle;
 import com.nafaexample.ternakmanagement.NewCattleActivity;
 import com.nafaexample.ternakmanagement.R;
 import com.nafaexample.ternakmanagement.CattleDetailActivity;
+import com.nafaexample.ternakmanagement.utils.FirebaseUtils;
 
 public class CattleFragment extends Fragment{
 
@@ -69,7 +70,6 @@ public class CattleFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
         Log.d(TAG, ":Start Fragment!");
         Log.d(TAG, "onCreate: "+ mDatabase);
-        Log.d(TAG, "Uid: "+ getUid());
 
         // Set up Layout Manager, reverse layout
         layoutManager = new LinearLayoutManager(getActivity());
@@ -79,7 +79,7 @@ public class CattleFragment extends Fragment{
         mProgressDialog.setMessage("Loading data...");
         mProgressDialog.show();
         //set up query
-        Query cattleQuery = getQuery(mDatabase);
+        Query cattleQuery = FirebaseUtils.getCattleQuery();
         cattlesAdapter = new FirebaseRecyclerAdapter<Cattle, CattleAdapter>(Cattle.class,
                 R.layout.ternak_cardview_item,CattleAdapter.class, cattleQuery) {
             @Override
@@ -110,15 +110,6 @@ public class CattleFragment extends Fragment{
         if (cattlesAdapter != null) {
             cattlesAdapter.cleanup();
         }
-    }
-
-    public String getUid() {
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
-    }
-
-    public Query getQuery(DatabaseReference databaseReference) {
-        return databaseReference.child("user-cattles")
-                .child(getUid());
     }
 
 }

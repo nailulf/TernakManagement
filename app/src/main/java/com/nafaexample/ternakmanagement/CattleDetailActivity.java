@@ -1,18 +1,24 @@
 package com.nafaexample.ternakmanagement;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.nafaexample.ternakmanagement.models.Cattle;
+import com.nafaexample.ternakmanagement.utils.FirebaseUtils;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -36,7 +43,7 @@ public class CattleDetailActivity extends AppCompatActivity{
     private String cattlekey;
     private int dd;
 
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase, mUserRef ;
     private StorageReference mStorage;
     private ValueEventListener mCattleListener;
 
@@ -65,9 +72,10 @@ public class CattleDetailActivity extends AppCompatActivity{
             Log.d(TAG,"Success get intent extra key");
         }
 
-        mDatabase = FirebaseDatabase.getInstance().getReference()
-                .child("cattle").child(cattlekey);
-        mStorage = FirebaseStorage.getInstance().getReference().child("cattle-images");
+        mDatabase = FirebaseUtils.getCattleRef().child(cattlekey);
+        mUserRef = FirebaseUtils.getCurrentUserCattleRef().child(cattlekey);
+        Log.d(TAG, "onCreate: "+mUserRef);
+        mStorage = FirebaseUtils.getImageCattleRef().child(cattlekey);
 
         Toolbar toolbarDetail =(Toolbar)findViewById(R.id.toolbar_detail);
         toolbarDetail.setTitle(TAG);
@@ -121,7 +129,7 @@ public class CattleDetailActivity extends AppCompatActivity{
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage("Loading data...");
         mProgressDialog.show();
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Cattle cattle1 = dataSnapshot.child("init-data").getValue(Cattle.class);
@@ -161,7 +169,6 @@ public class CattleDetailActivity extends AppCompatActivity{
             mDatabase.removeEventListener(mCattleListener);
         }
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if (requestCode == REQUEST_CODE) {
@@ -170,8 +177,7 @@ public class CattleDetailActivity extends AppCompatActivity{
             }
         }
     }
-    public int getDayCount(long pDate)
-    {
+    public int getDayCount(long pDate) {
         long cDate = System.currentTimeMillis();
 
         // Calculate difference in milliseconds
@@ -179,5 +185,66 @@ public class CattleDetailActivity extends AppCompatActivity{
         System.out.println("Day Count : "+ diff / (24 * 60 * 60 * 1000));
         dd = (int)(diff / (24 * 60 * 60 * 1000));
         return dd;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_cattle_detail, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Take appropriate action for each action item click
+        switch (item.getItemId()) {
+            case R.id.action_delete:
+                // delete action
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setMessage("Are you sure want to remove this cattle?");
+                alertDialogBuilder.setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                removeCattle();
+                                Log.d(TAG, "onClick: remove cattle executed!");
+                                Toast.makeText(CattleDetailActivity.this,
+                                        "You clicked Yes button",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                alertDialogBuilder.setNegativeButton("No",
+                        new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                Toast.makeText(CattleDetailActivity.this,
+                                        "You clicked No button",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void removeCattle() {
+        //delete from /user-cattles/
+        mUserRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().removeValue();
+                //delete from /cattle/
+                mDatabase.removeValue();
+                //delete from storage
+                mStorage.delete();
+                Intent main = new Intent(CattleDetailActivity.this, MainActivity.class);
+                startActivity(main);
+                finish();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
