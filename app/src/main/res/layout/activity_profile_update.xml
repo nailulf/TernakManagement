@@ -191,5 +191,9 @@
                 android:layout_weight="1"
                 android:text="@string/saveBtn" />
         </LinearLayout>
+
+        <include
+            android:id="@+id/timerCattle"
+            layout="@layout/timer_view" />
     </RelativeLayout>
 </LinearLayout>

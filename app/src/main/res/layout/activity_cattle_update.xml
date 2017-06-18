@@ -271,4 +271,8 @@
             android:gravity="center"
             android:text="@string/UpdateBtn" />
     </LinearLayout>
+
+    <include
+        android:id="@+id/timerCattle"
+        layout="@layout/timer_view" />
 </RelativeLayout>

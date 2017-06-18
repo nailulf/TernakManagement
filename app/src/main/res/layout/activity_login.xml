@@ -7,6 +7,10 @@
     android:id="@+id/activity_login"
     android:background="#64b5f6">
 
+    <include
+        android:id="@+id/timerLogin"
+        layout="@layout/timer_view" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

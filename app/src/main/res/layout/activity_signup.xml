@@ -101,4 +101,8 @@
             android:text="@string/login_hint"
             android:textSize="15sp"/>
     </LinearLayout>
+
+    <include
+        android:id="@+id/timerCattle"
+        layout="@layout/timer_view" />
 </RelativeLayout>

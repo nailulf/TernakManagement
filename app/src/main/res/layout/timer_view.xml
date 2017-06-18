@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTintMode="add">
+
+
+    <com.robertlevonyan.views.customfloatingactionbutton.CustomFloatingActionButton
+        android:id="@+id/timer_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:fabColor="#E0E0E0"
+        app:fabType="roundedSquare"
+        app:fabIcon="@drawable/ic_timer"
+        app:fabIconColor="@color/grey"
+        app:fabIconPosition="end"
+        app:fabText="Hello World!"
+        app:fabTextColor="@color/grey"
+        app:fabSizes="mini"
+        android:layout_gravity="bottom|end" />
+
+</LinearLayout>

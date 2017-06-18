@@ -4,6 +4,10 @@
     android:layout_height="match_parent"
     android:background="#64b5f6" >
 
+    <include
+        android:id="@+id/timerCattle"
+        layout="@layout/timer_view" />
+
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="150dp"
