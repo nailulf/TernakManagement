@@ -3,7 +3,6 @@ package com.nafaexample.ternakmanagement.fragments;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.nafaexample.ternakmanagement.CattleDetailActivity;
+import com.nafaexample.ternakmanagement.LoginActivity;
 import com.nafaexample.ternakmanagement.MainActivity;
 import com.nafaexample.ternakmanagement.ProfileUpdateActivity;
 import com.nafaexample.ternakmanagement.R;
@@ -28,13 +28,12 @@ import com.nafaexample.ternakmanagement.models.User;
 import com.nafaexample.ternakmanagement.utils.FirebaseUtils;
 import com.squareup.picasso.Picasso;
 
-import static android.app.Activity.RESULT_OK;
-
 public class ProfileFragment extends Fragment {
 
     public static final String TAG ="Profile";
     public static final int REQUEST_CODE = 1;
     private static final int GALLERY_REQUEST = 0;
+
     public DatabaseReference mDatabase;
     private TextView nameTxt, farmTxt, phoneTxt, emailTxt, cattleNumTxt;
     private ImageView profilePict;
@@ -70,6 +69,16 @@ public class ProfileFragment extends Fragment {
                 Intent edit = new Intent(getActivity(), ProfileUpdateActivity.class);
                 edit.putExtra("ID User",String.valueOf(FirebaseUtils.getUid()));
                 startActivityForResult(edit, GALLERY_REQUEST);
+            }
+        });
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseUtils.logout();
+                Intent login = new Intent(getActivity(), LoginActivity.class);
+                startActivity(login);
+                getActivity().finish();
             }
         });
 

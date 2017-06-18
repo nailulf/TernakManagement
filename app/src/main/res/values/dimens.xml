@@ -5,7 +5,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="tab_max_width">264dp</dimen>
     <dimen name="tab_padding_bottom">16dp</dimen>
-    <dimen name="tab_label">14sp</dimen>
+    <dimen name="tab_label">12sp</dimen>
     <dimen name="custom_tab_layout_height">72dp</dimen>
     <dimen name="fragment_margin">10dp</dimen>
     <dimen name="cardview_margin">5dp</dimen>
@@ -13,10 +13,10 @@
     <dimen name="card_image_margin">5dp</dimen>
     <dimen name="card_ternak_image_w">80dp</dimen>
     <dimen name="card_ternak_image_h">80dp</dimen>
-    <dimen name="card_primary_text">20sp</dimen>
-    <dimen name="card_secondary_text">18sp</dimen>
-    <dimen name="card_tertiary_text">16sp</dimen>
+    <dimen name="card_primary_text">14sp</dimen>
+    <dimen name="card_secondary_text">12sp</dimen>
+    <dimen name="card_tertiary_text">10sp</dimen>
     <dimen name="detail_ternak_image_h">200dp</dimen>
-    <dimen name="detail_primary_text">20sp</dimen>
+    <dimen name="detail_primary_text">12sp</dimen>
     <dimen name="margin_row">5dp</dimen>
 </resources>

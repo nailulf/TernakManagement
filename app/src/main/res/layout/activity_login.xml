@@ -18,7 +18,7 @@
         android:layout_alignParentStart="true">
 
         <ImageView
-            android:src="@mipmap/ic_launcher_round"
+            android:src="@mipmap/ic_icon_iternak"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginBottom="24dp"

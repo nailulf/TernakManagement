@@ -17,6 +17,11 @@ public class FirebaseUtils {
     public static FirebaseUser getCurrentUser() {
         return FirebaseAuth.getInstance().getCurrentUser();
     }
+
+    public static void logout(){
+        FirebaseAuth.getInstance().signOut();
+    }
+
     public static String getUid() {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }

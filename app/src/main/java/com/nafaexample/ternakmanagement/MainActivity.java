@@ -22,6 +22,7 @@ import com.nafaexample.ternakmanagement.fragments.ProfileFragment;
 import com.nafaexample.ternakmanagement.fragments.CattleFragment;
 import com.nafaexample.ternakmanagement.fragments.TodoFragment;
 import com.nafaexample.ternakmanagement.fragments.VeterinerFragment;
+import com.nafaexample.ternakmanagement.utils.FirebaseUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.sign_out_menu:
-                mAuth.signOut();
+                FirebaseUtils.logout();
                 Intent login = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(login);
                 finish();
