@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:id="@+id/activity_login">
+    android:id="@+id/activity_login"
+    android:background="#64b5f6">
 
     <LinearLayout
         android:orientation="vertical"
@@ -54,6 +55,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:id="@+id/loginBtn"
+            android:shadowColor="@color/grey"
+            android:shadowDx="200dp"
+            android:shadowDy="200dp"
+            android:background="#FFFFFF"
+            android:textColor="@color/grey"
             android:text="@string/login_btn"/>
 
         <TextView
@@ -63,6 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@color/white"
             android:text="@string/signup_hint"
             android:textSize="@dimen/card_secondary_text"/>
     </LinearLayout>

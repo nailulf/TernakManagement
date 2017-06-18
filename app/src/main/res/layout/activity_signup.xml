@@ -2,31 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:layout_scrollFlags="scroll|enterAlways"
-        android:titleTextColor="@color/textColorPrimary"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#64b5f6">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="56dp"
+        android:paddingTop="24dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <ImageView android:src="@mipmap/ic_launcher_round"
+        <ImageView android:src="@mipmap/ic_icon_iternak"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginBottom="24dp"
             android:layout_gravity="center_horizontal" />
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -96,6 +88,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:id="@+id/signupBtn"
+            android:background="@color/white"
             android:text="@string/signup_btn"/>
 
         <TextView
@@ -104,6 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@color/white"
             android:text="@string/login_hint"
             android:textSize="15sp"/>
     </LinearLayout>

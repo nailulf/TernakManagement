@@ -8,4 +8,5 @@
     <color name="colorAccent">#c8e8ff</color>
     <color name="grey">#595959</color>
     <color name="warning">#fa0000</color>
+    <color name="white">#FFFFFF</color>
 </resources>

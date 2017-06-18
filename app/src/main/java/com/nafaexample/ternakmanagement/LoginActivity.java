@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.nafaexample.ternakmanagement.utils.FirebaseUtils;
 
+import java.sql.Time;
+
 /**
  * Created by Nailul on 4/11/2017.
  */
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button loginBtn;
     private EditText mEmail, mPassword;
     private TextView mSignUp;
+    public  double timeStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -52,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
                 userLogin();
+                timeStart = System.currentTimeMillis();
             }
         });
 
